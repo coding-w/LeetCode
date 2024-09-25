@@ -9,6 +9,7 @@ func main() {
 	fmt.Println(isPalindrome(11))
 }
 
+// https://leetcode.cn/problems/palindrome-number/description/
 func isPalindrome(x int) bool {
 	if x < 0 {
 		return false
