@@ -1,50 +1,50 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func main() {
-	aa := &ListNode{
-		Val: 1,
-		Next: &ListNode{
-			Val: 2,
-			Next: &ListNode{
-				Val: 3,
-				Next: &ListNode{
-					Val: 4,
-					Next: &ListNode{
-						Val:  5,
-						Next: nil,
-					},
-				},
-			},
-		},
-	}
-	res := removeNthFromEnd(aa, 2)
-	for res != nil {
-		fmt.Println(res.Val)
-		res = res.Next
-	}
+	nums := []int{1, 0, -1, 0, -2, 2}
+	fmt.Println(fourSum(nums, 0))
+
 }
 
-// https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	res := head
-	recursion(res, n)
+// https://leetcode.cn/problems/4sum/description/
+func fourSum(nums []int, target int) [][]int {
+	if len(nums) < 4 {
+		return nil
+	}
+	res := make([][]int, 0)
+	sort.Ints(nums)
+	for i := 0; i < len(nums)-3; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		for j := i + 1; j < len(nums)-2; j++ {
+			if j > i+1 && nums[j] == nums[j-1] {
+				continue
+			}
+			left, right := j+1, len(nums)-1
+			for left < right {
+				sum := nums[i] + nums[j] + nums[left] + nums[right]
+				if sum == target {
+					res = append(res, []int{nums[i], nums[j], nums[left], nums[right]})
+					for left < right && nums[left] == nums[left+1] {
+						left++
+					}
+					for left < right && nums[right] == nums[right-1] {
+						right--
+					}
+					left++
+				} else if sum < target {
+					left++
+				} else {
+					right--
+				}
+			}
+		}
+	}
 	return res
-}
-
-func recursion(head *ListNode, n int) int {
-	if head == nil {
-		return 0
-	}
-	index := recursion(head.Next, n)
-	if n == index {
-		head.Next = head.Next.Next
-	}
-	return index + 1
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }

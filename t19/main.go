@@ -3,29 +3,48 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(isValid("{}{[]}"))
+	aa := &ListNode{
+		Val: 1,
+		Next: &ListNode{
+			Val: 2,
+			Next: &ListNode{
+				Val: 3,
+				Next: &ListNode{
+					Val: 4,
+					Next: &ListNode{
+						Val:  5,
+						Next: nil,
+					},
+				},
+			},
+		},
+	}
+	res := removeNthFromEnd(aa, 2)
+	for res != nil {
+		fmt.Println(res.Val)
+		res = res.Next
+	}
 }
 
-// https://leetcode.cn/problems/valid-parentheses/
-func isValid(s string) bool {
-	if len(s)%2 != 0 {
-		return false
+// https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	res := head
+	recursion(res, n)
+	return res
+}
+
+func recursion(head *ListNode, n int) int {
+	if head == nil {
+		return 0
 	}
-	var stack []byte
-	for i := 0; i < len(s); i++ {
-		switch s[i] {
-		case '(':
-			stack = append(stack, ')')
-		case '[':
-			stack = append(stack, ']')
-		case '{':
-			stack = append(stack, '}')
-		default:
-			if len(stack) == 0 || stack[len(stack)-1] != s[i] {
-				return false
-			}
-			stack = stack[:len(stack)-1]
-		}
+	index := recursion(head.Next, n)
+	if n == index {
+		head.Next = head.Next.Next
 	}
-	return len(stack) == 0
+	return index + 1
+}
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
 }
