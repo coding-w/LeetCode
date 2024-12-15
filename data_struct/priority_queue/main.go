@@ -4,51 +4,6 @@ import (
 	"fmt"
 )
 
-func main() {
-	m := Constructor()
-	m.AddNum(1)
-	m.AddNum(2)
-	fmt.Println(m.FindMedian())
-	m.AddNum(3)
-	fmt.Println(m.FindMedian())
-}
-
-// MedianFinder
-// https://leetcode.cn/problems/find-median-from-data-stream/
-type MedianFinder struct {
-	left  *PriorityQueue
-	right *PriorityQueue
-}
-
-func Constructor() MedianFinder {
-	return MedianFinder{
-		left: NewPriorityQueue(func(a, b int) bool {
-			return a < b
-		}),
-		right: NewPriorityQueue(func(a, b int) bool {
-			return a > b
-		}),
-	}
-}
-
-func (this *MedianFinder) AddNum(num int) {
-	if this.left.size == this.right.size {
-		this.right.Push(num)
-		this.left.Push(this.right.Pop())
-	} else {
-		this.left.Push(num)
-		this.right.Push(this.left.Pop())
-	}
-}
-
-func (this *MedianFinder) FindMedian() float64 {
-	if this.left.size == this.right.size {
-		return float64(this.left.Peek()+this.right.Peek()) / 2
-	} else {
-		return float64(this.left.Peek())
-	}
-}
-
 // PriorityQueue 定义优先队列结构
 type PriorityQueue struct {
 	data     []int               // 堆数据存储
@@ -73,9 +28,9 @@ func (pq *PriorityQueue) Push(val int) {
 }
 
 // Pop 删除堆顶元素并调整堆（下滤）
-func (pq *PriorityQueue) Pop() int {
+func (pq *PriorityQueue) Pop() (int, error) {
 	if pq.size == 0 {
-		return 0
+		return 0, fmt.Errorf("priority queue is empty")
 	}
 	// 堆顶元素
 	top := pq.data[0]
@@ -85,15 +40,15 @@ func (pq *PriorityQueue) Pop() int {
 	pq.data = pq.data[:pq.size-1]
 	pq.size--
 	pq.siftDown(0) // 调整堆
-	return top
+	return top, nil
 }
 
 // Peek 获取堆顶元素
-func (pq *PriorityQueue) Peek() int {
+func (pq *PriorityQueue) Peek() (int, error) {
 	if pq.size == 0 {
-		return 0
+		return 0, fmt.Errorf("priority queue is empty")
 	}
-	return pq.data[0]
+	return pq.data[0], nil
 }
 
 // 上滤操作
@@ -131,5 +86,48 @@ func (pq *PriorityQueue) siftDown(index int) {
 		// 否则交换当前节点与较小的子节点
 		pq.data[index], pq.data[smallest] = pq.data[smallest], pq.data[index]
 		index = smallest
+	}
+}
+
+func main() {
+	// 创建大顶堆
+	maxHeap := NewPriorityQueue(func(a, b int) bool {
+		// 大顶堆：父节点大于子节点
+		return a > b
+	})
+	maxHeap.Push(3)
+	maxHeap.Push(4)
+	maxHeap.Push(5)
+	maxHeap.Push(6)
+	maxHeap.Push(1)
+	maxHeap.Push(7)
+	maxHeap.Push(8)
+	peek, _ := maxHeap.Peek()
+	fmt.Println("大顶堆 Peek:", peek)
+	fmt.Println("大顶堆 Pop:")
+	for maxHeap.size > 0 {
+		val, _ := maxHeap.Pop()
+		fmt.Print(val, " ")
+	}
+	fmt.Println()
+
+	// 创建小顶堆
+	minHeap := NewPriorityQueue(func(a, b int) bool {
+		// 小顶堆：父节点小于子节点
+		return a < b
+	})
+	minHeap.Push(3)
+	minHeap.Push(4)
+	minHeap.Push(5)
+	minHeap.Push(6)
+	minHeap.Push(1)
+	minHeap.Push(7)
+	minHeap.Push(8)
+	peek, _ = minHeap.Peek()
+	fmt.Println("小顶堆 Peek:", peek)
+	fmt.Println("小顶堆 Pop:")
+	for minHeap.size > 0 {
+		val, _ := minHeap.Pop()
+		fmt.Print(val, " ")
 	}
 }
