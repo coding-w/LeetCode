@@ -18,41 +18,48 @@ func main() {
 
 // SummaryRanges
 // https://leetcode.cn/problems/data-stream-as-disjoint-intervals/
+// 暴力破解！！
 type SummaryRanges struct {
-	nums   []int
-	length int
+	nums []int
 }
 
 func Constructor() SummaryRanges {
 	return SummaryRanges{
-		nums:   []int{},
-		length: 0,
+		nums: []int{},
 	}
 }
 
 func (this *SummaryRanges) AddNum(value int) {
-	if this.length == 0 {
-		this.nums = append(this.nums, value)
-	} else {
-		for i, num := range this.nums {
-			if num > value {
-				this.nums = append(this.nums[:i], append([]int{value}, this.nums[i:]...)...)
-				this.length++
+	this.nums = append(this.nums, value)
+	if len(this.nums) > 1 {
+		i := len(this.nums) - 1
+		for i > 0 {
+			if this.nums[i] == this.nums[i-1] {
+				this.nums = append(this.nums[:i], this.nums[i+1:]...)
+				return
+			}
+			if this.nums[i] < this.nums[i-1] {
+				this.nums[i], this.nums[i-1] = this.nums[i-1], this.nums[i]
+				i--
+			} else {
 				return
 			}
 		}
-		this.nums = append(this.nums, value)
 	}
-	this.length++
 }
 
 func (this *SummaryRanges) GetIntervals() (res [][]int) {
+	if len(this.nums) == 0 {
+		return
+	}
 	k := 0
-	for i := 1; i < this.length; i++ {
+	i := 1
+	for ; i < len(this.nums); i++ {
 		if this.nums[i-1]+1 != this.nums[i] {
 			res = append(res, []int{this.nums[k], this.nums[i-1]})
 			k = i
 		}
 	}
+	res = append(res, []int{this.nums[k], this.nums[i-1]})
 	return res
 }
