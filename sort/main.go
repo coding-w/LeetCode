@@ -6,11 +6,10 @@ import (
 	"time"
 )
 
+// main.go golang 实现
 func main() {
-	//nums := []int{3, 5, 4, 6, 2, 1}
-
 	// 1. 冒泡排序
-	// fmt.Println(bubbleSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println(bubbleSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 2. 选择排序
 	// fmt.Println(selectionSort([]int{3, 5, 4, 6, 2, 1}))
@@ -28,7 +27,7 @@ func main() {
 	// fmt.Println(quickSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 7. 堆排序
-	// fmt.Println(heapSort([]int{3, 5, 4, 6, 2, 1}))
+	//fmt.Println(heapSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 8. 计数排序
 	// fmt.Println(countingSort([]int{3, 5, 4, 6, 2, 1}))
@@ -40,20 +39,25 @@ func main() {
 	//fmt.Println(radixSort([]int{113, 112, 210, 6}))
 
 	// 11. Timsort
-	fmt.Println(timSort([]int{3, 5, 4, 6, 2, 1}))
+	//fmt.Println(timSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 12. 猴子排序
-	//fmt.Println(bogoSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println(bogoSort([]int{3, 5, 4, 6, 2, 1}))
 }
 
 // bubbleSort 冒泡排序
 func bubbleSort(nums []int) []int {
 	length := len(nums)
 	for i := 0; i < length-1; i++ {
+		swapped := false
 		for j := 1; j < length-i; j++ {
 			if nums[j-1] > nums[j] {
 				nums[j-1], nums[j] = nums[j], nums[j-1]
+				swapped = true
 			}
+		}
+		if !swapped {
+			break
 		}
 	}
 	return nums
@@ -125,23 +129,23 @@ func mergeSort(nums []int) []int {
 
 // merge 合并两个有序数组
 func merge(left, right []int) []int {
-	result := make([]int, 0, len(left)+len(right))
+	merged := make([]int, 0, len(left)+len(right))
 	i, j := 0, 0
 
 	for i < len(left) && j < len(right) {
 		if left[i] < right[j] {
-			result = append(result, left[i])
+			merged = append(merged, left[i])
 			i++
 		} else {
-			result = append(result, right[j])
+			merged = append(merged, right[j])
 			j++
 		}
 	}
 
 	// 将剩余的元素添加到结果中
-	result = append(result, left[i:]...)
-	result = append(result, right[j:]...)
-	return result
+	merged = append(merged, left[i:]...)
+	merged = append(merged, right[j:]...)
+	return merged
 }
 
 // quickSort 快速排序
@@ -421,7 +425,7 @@ func isSorted(nums []int) bool {
 // shuffle 随机打乱数组
 func shuffle(nums []int) {
 	for i := range nums {
-		j := rand.Intn(i + 1)
+		j := rand.Intn(len(nums))
 		nums[i], nums[j] = nums[j], nums[i]
 	}
 }
