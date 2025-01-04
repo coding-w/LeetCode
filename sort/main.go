@@ -9,40 +9,40 @@ import (
 // main.go golang 实现
 func main() {
 	// 1. 冒泡排序
-	fmt.Println(bubbleSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("冒泡排序", bubbleSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 2. 选择排序
-	// fmt.Println(selectionSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("选择排序", selectionSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 3. 插入排序
-	// fmt.Println(insertionSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("插入排序", insertionSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 4. 希尔排序
-	// fmt.Println(shellSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("希尔排序", shellSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 5. 归并排序
-	// fmt.Println(mergeSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("归并排序", mergeSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 6. 快速排序
-	// fmt.Println(quickSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("快速排序", quickSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 7. 堆排序
-	//fmt.Println(heapSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("堆排序", heapSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 8. 计数排序
-	// fmt.Println(countingSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("计数排序", countingSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 9. 桶排序
-	// fmt.Println(bucketSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("桶排序", bucketSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 10. 基数排序
-	//fmt.Println(radixSort([]int{113, 112, 210, 6}))
+	fmt.Println("基数排序", radixSort([]int{113, 112, 210, 6}))
 
 	// 11. Timsort
-	//fmt.Println(timSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("Timsort", timSort([]int{3, 5, 4, 6, 2, 1}))
 
 	// 12. 猴子排序
-	fmt.Println(bogoSort([]int{3, 5, 4, 6, 2, 1}))
+	fmt.Println("猴子排序", bogoSort([]int{3, 5, 4, 6, 2, 1}))
 }
 
 // bubbleSort 冒泡排序

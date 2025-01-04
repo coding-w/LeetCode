@@ -43,6 +43,8 @@ public class Main {
 
         // timSort
         System.out.println("timSort = " + Arrays.toString(timSort(new int[]{3, 5, 4, 6, 2, 1})));
+
+        // 猴子排序
         System.out.println("bogoSort = " + Arrays.toString(bogoSort(new int[]{3, 5, 4, 6, 2, 1})));
     }
 
