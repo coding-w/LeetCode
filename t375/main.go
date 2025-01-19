@@ -7,6 +7,8 @@ func main() {
 }
 
 // https://leetcode.cn/problems/guess-number-higher-or-lower-ii/description/
+// https://leetcode.cn/problems/guess-number-higher-or-lower-ii/solutions/83395/dong-tai-gui-hua-c-you-tu-jie-by-zhang-xiao-tong-2/
+// 顶级题解
 func getMoneyAmount(n int) int {
 	if n == 1 {
 		return 0
