@@ -1,7 +1,9 @@
 package main
 
-func main() {
+import "fmt"
 
+func main() {
+	fmt.Println(coinChange([]int{1, 3, 5}, 11))
 }
 
 // https://leetcode.cn/problems/coin-change/
